@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="660.0" prefWidth="860.0" styleClass="lite" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipi.dii.dmml.moviebox.controller.BrowserController">
+   <children>
+      <BorderPane prefHeight="680.0" prefWidth="860.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="860.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="210.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="258.0" styleClass="title">
+                           <children>
+                              <ImageView fitHeight="71.0" fitWidth="183.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/MovieBox.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="60.0" prefWidth="495.0">
+                     <children>
+                        <TextField fx:id="keywordTf" alignment="CENTER" prefHeight="30.0" prefWidth="355.0" promptText="Search by keywords" styleClass="shadow">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets left="100.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="83.0" prefWidth="98.0">
+                     <children>
+                        <Button fx:id="searchFilmBt" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startFilmSearch" prefHeight="25.0" prefWidth="83.0" text="Search">
+                           <styleClass>
+                              <String fx:value="search-button" />
+                              <String fx:value="dynamic-button" />
+                           </styleClass></Button>
+                     </children>
+                  </VBox>
+               </children>
+               <styleClass>
+                  <String fx:value="shadow" />
+                  <String fx:value="search-bar" />
+               </styleClass>
+            </HBox>
+         </top>
+         <center>
+            <VBox prefHeight="476.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="580.0" prefWidth="650.0">
+                     <children>
+                        <GridPane fx:id="cardsGrid" alignment="CENTER" prefHeight="500.0" prefWidth="650.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="700.0" styleClass="shadow">
+                     <children>
+                        <Button fx:id="backBt" mnemonicParsing="false" prefHeight="36.0" prefWidth="50.0">
+                           <styleClass>
+                              <String fx:value="search-button" />
+                              <String fx:value="dynamic-button" />
+                           </styleClass>
+                           <graphic>
+                              <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/back.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></Button>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="580.0">
+                           <children>
+                              <Button fx:id="forwardBt" mnemonicParsing="false" prefHeight="36.0" prefWidth="50.0">
+                                 <styleClass>
+                                    <String fx:value="search-button" />
+                                    <String fx:value="dynamic-button" />
+                                 </styleClass>
+                                 <graphic>
+                                    <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" rotate="-180.0">
+                                       <image>
+                                          <Image url="@../img/back.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
+                           </children>
+                        </HBox>
+                     </children></HBox>
+               </children>
+            </VBox>
+         </center>
+         <left>
+            <VBox alignment="TOP_CENTER" prefHeight="476.0" prefWidth="210.0" styleClass="search-bar" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="143.0" prefWidth="210.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="134.0" prefWidth="210.0">
+                           <children>
+                              <ComboBox fx:id="chooseType" onAction="#showOption" prefHeight="24.0" prefWidth="190.0" promptText="Type of research" styleClass="transparent" />
+                              <Button fx:id="searchBt" alignment="CENTER" mnemonicParsing="false" onAction="#startResearch" prefHeight="30.0" prefWidth="180.0" text="Search">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="search-button" />
+                                    <String fx:value="dynamic-button" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="354.0" prefWidth="210.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="270.0" prefWidth="210.0">
+                           <children>
+                              <Button fx:id="insertBt" mnemonicParsing="false" prefHeight="30.0" prefWidth="180.0" text="InsertFilm">
+                                 <styleClass>
+                                    <String fx:value="buttonlog" />
+                                    <String fx:value="dynamic-button" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="85.0" prefWidth="210.0">
+                           <children>
+                              <Button fx:id="profileButton" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="EditProfile">
+                                 <VBox.margin>
+                                    <Insets top="3.0" />
+                                 </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="buttonlog" />
+                                    <String fx:value="dynamic-button" />
+                                 </styleClass>
+                              </Button>
+                              <Button fx:id="logoutButton" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Logout">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="buttonlog" />
+                                    <String fx:value="dynamic-button" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

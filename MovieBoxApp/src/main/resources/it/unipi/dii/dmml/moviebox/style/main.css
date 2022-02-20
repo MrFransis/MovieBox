@@ -1,0 +1,46 @@
+.dark {
+    -fx-background-color:  #8E8D8A;
+}
+
+.lite {
+    -fx-background-color:  #EAE7DC;
+}
+
+.login {
+    -fx-background-color:  #D8C3A5;
+    -fx-border-color:  transparent transparent #8E8D8A transparent;
+    -fx-text-fill: #000000;
+}
+
+.buttonlog {
+    -fx-background-color:  #8E8D8A;
+    -fx-text-fill: #EAE7DC;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 40;
+}
+
+.search-bar {
+    -fx-background-color: #D8C3A5;
+}
+
+.transparent {
+    -fx-background-color: #FFFFFF;
+    -fx-font-size: 14px;
+}
+
+.search-button {
+    -fx-background-color: #E98074;
+    -fx-background-radius: 30;
+    -fx-font-size: 14px;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10.0, 0.0, 0.0, 10.0);
+}
+
+.dynamic-button:hover {
+    -fx-background-color: orange;
+    -fx-cursor: hand;
+}
+

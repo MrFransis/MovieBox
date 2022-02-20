@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="363.0" styleClass="lite" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipi.dii.dmml.moviebox.controller.LoginController">
+   <children>
+      <AnchorPane layoutX="24.0" layoutY="52.0" prefHeight="263.0" prefWidth="316.0">
+         <children>
+            <TextField fx:id="usernameTf" layoutX="83.0" layoutY="94.0" promptText="Username" styleClass="login" stylesheets="@../style/main.css" />
+            <PasswordField fx:id="passwordTf" layoutX="83.0" layoutY="146.0" promptText="Password" styleClass="login" stylesheets="@../style/main.css" />
+            <Button fx:id="loginButton" layoutX="131.0" layoutY="191.0" mnemonicParsing="false" onAction="#checkCredential" stylesheets="@../style/main.css" text="Login">
+               <styleClass>
+                  <String fx:value="buttonlog" />
+                  <String fx:value="dynamic-button" />
+               </styleClass></Button>
+            <Label layoutX="132.0" layoutY="42.0" text="SingIn" textFill="#e98074">
+               <font>
+                  <Font name="Arial Italic" size="18.0" />
+               </font></Label>
+            <Label fx:id="errorTf" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="229.0" prefHeight="20.0" prefWidth="296.0" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="113.0" layoutY="22.0" text="MovieBox" textFill="#e98074">
+         <font>
+            <Font name="System Bold Italic" size="30.0" />
+         </font></Label>
+      <Button fx:id="registerButton" layoutX="145.0" layoutY="341.0" mnemonicParsing="false" onAction="#loadRegisterForm" stylesheets="@../style/main.css" text="Register">
+         <styleClass>
+            <String fx:value="buttonlog" />
+            <String fx:value="dynamic-button" />
+         </styleClass></Button>
+   </children>
+</AnchorPane>
