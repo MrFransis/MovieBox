@@ -78,12 +78,11 @@ public class Neo4jManager {
     }
 
     /**
-     * Create a new User in graphDB
-     * @param u new User
-     * @return True if user creation was successful, otherwise null
+     * Update a new User in graphDB
+     * @param u User
+     * @return True if user update was successful, otherwise null
      */
     public boolean updateUser(User u) {
-        System.out.println(u);
         try (Session session = driver.session()) {
             session.writeTransaction((TransactionWork<Boolean>) tx -> {
                 tx.run("MATCH (u:User {username: $username}) " +
@@ -161,40 +160,6 @@ public class Neo4jManager {
      * @param f new Film
      * @return True if user creation was successful, otherwise null
      */
-    public boolean addFilm2(Film f) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        boolean res = false;
-        try (Session session = driver.session()) {
-            res = session.writeTransaction((TransactionWork<Boolean>) tx -> {
-                tx.run("CREATE (f:Film { tmdb_id: $id, " +
-                                "title: $title , " +
-                                "plot: $plot , " +
-                                "genre: $genre, " +
-                                "posterUrl: $posterUrl, " +
-                                "language: $language, " +
-                                "production_companies: $companies, " +
-                                "production_country: $country, " +
-                                "release_date: $date, " +
-                                "casts: $casts})",
-                        parameters("id", f.getTmdb_id(),
-                                "title", f.getTitle(),
-                                "plot", f.getPlot(),
-                                "genre", f.getGenre(),
-                                "posterUrl", f.getPosterUrl(),
-                                "language", f.getLanguage(),
-                                "companies", String.join(",", f.getProduction_companies()),
-                                "country", f.getProduction_country(),
-                                "date", df.format(f.getRelease_date()),
-                                "casts", String.join(",",f.getCasts())));
-                return true;
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return res;
-    }
-
     public boolean addFilm(Film f) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         boolean res = false;
@@ -244,7 +209,7 @@ public class Neo4jManager {
 
     /**
      * Function that deletes a Film from the GraphDB
-     * @param f Film to delete
+     * @param id Film_id to delete
      * @return True if the operation is done successfully, false otherwise
      */
     public boolean deleteFilm(String id) {
@@ -320,6 +285,12 @@ public class Neo4jManager {
         return res;
     }
 
+    /**
+     * Function that return a list of films by parameters
+     * @param keyword Keyword contained in the film title
+     * @param limit Limit the number of films returned
+     * @param skip Skip the first "n" films
+     */
     public List<Film> getFilms (String keyword, int limit, int skip){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         List<Film> films;
@@ -359,13 +330,18 @@ public class Neo4jManager {
                     }
                     filmList.add(snap);
                 }
-                System.out.println(filmList);
                 return filmList;
             });
         }
         return films;
     }
 
+    /**
+     * Function that return a list of liked by the user
+     * @param u User
+     * @param limit Limit the number of films returned
+     * @param skip Skip the first "n" films
+     */
     public List<Film> getSnapsOfLikedFilm (User u, int limit, int skip){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         List<Film> likeFilms;
@@ -410,6 +386,14 @@ public class Neo4jManager {
         return likeFilms;
     }
 
+    /**
+     * Function that return a list of suggested film for the user
+     * "The function suggest films retrieving all the genres liked by the user and searching the most
+     * popular films by number of likes belonging to those genres."
+     * @param u User
+     * @param limit Limit the number of films returned
+     * @param skip Skip the first "n" films
+     */
     public List<Film> getSnapsOfSuggestedFilm (User u, int limit, int skip){
         List<Film> likeFilms;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

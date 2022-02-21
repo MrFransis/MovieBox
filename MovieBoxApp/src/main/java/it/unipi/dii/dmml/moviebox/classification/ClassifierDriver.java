@@ -25,7 +25,7 @@ public class ClassifierDriver {
 
     /**
      * Function that returns genre given the plot of the film
-     * @param plot  Plot of to the film
+     * @param plot Plot of to the film
      * @return film genre
      */
     public String getMovieGenre(String plot)
@@ -47,7 +47,7 @@ public class ClassifierDriver {
     }
 
     /**
-     * Function that sends a string to the server, dividing it into packet
+     * Function that sends a file to the server, dividing it into packet
      * @throws Exception if something goes wrong
      */
     private void sendPlot() throws Exception{

@@ -78,6 +78,10 @@ public class InsertFilmController {
         chooseGenre.setItems(observableListSuggestion);
     }
 
+    /**
+     * Request for film genre classification
+     * @param mouseEvent
+     */
     private void clickOnClassifyBtn(MouseEvent mouseEvent) throws IOException, URISyntaxException {
         if(plotTF.getText().equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -104,6 +108,10 @@ public class InsertFilmController {
         classifyBT.setDisable(false);
     }
 
+    /**
+     * Insert new film in the database
+     * @param mouseEvent
+     */
     private void clickOnInsertIcon(MouseEvent mouseEvent) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         errorTF.setText("");
@@ -143,6 +151,10 @@ public class InsertFilmController {
         chooseGenre.getSelectionModel().clearSelection();
     }
 
+    /**
+     * Remove a film from database
+     * @param mouseEvent
+     */
     private void clickOnRemoveBtn(MouseEvent mouseEvent) {
         if (!removeTF.getText().equals("")){
             neoMan.deleteFilm(removeTF.getText());
@@ -150,6 +162,10 @@ public class InsertFilmController {
         }
     }
 
+    /**
+     * Load browser page
+     * @param mouseEvent
+     */
     private void clickOnBackBtn(MouseEvent mouseEvent) {
         Utils.changeScene("/it/unipi/dii/dmml/moviebox/layout/browser.fxml", mouseEvent);
     }

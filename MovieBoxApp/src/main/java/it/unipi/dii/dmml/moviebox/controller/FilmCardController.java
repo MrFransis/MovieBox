@@ -73,6 +73,10 @@ public class FilmCardController implements Initializable {
             likebtn.setText("Like");
     }
 
+    /**
+     * Add User-LIKES-Films relationship to database
+     * @param mouseEvent
+     */
     private void clickLike (MouseEvent mouseEvent){
         if(Objects.equals(likebtn.getText(), "Like")){
             neoMan.likeFilm(user, film);

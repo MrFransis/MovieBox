@@ -56,14 +56,23 @@ public class BrowserController {
         loadComboBox();
     }
 
+    /**
+     * Load login page
+     * @param event
+     */
     private void logout(MouseEvent event) {
         Utils.changeScene("/it/unipi/dii/dmml/moviebox/layout/login.fxml", event);
     }
 
+    /**
+     * Load inserFilm page
+     * @param mouseEvent
+     */
     private void clickOnBackBtn(MouseEvent mouseEvent) {
         Utils.changeScene("/it/unipi/dii/dmml/moviebox/layout/insertFilm.fxml", mouseEvent);
     }
 
+    //---------------------------------Functions to handle the research---------------------------------
     @FXML
     void showOption() {
         page = 0;
@@ -103,13 +112,11 @@ public class BrowserController {
                 case "My Films" -> {
                     System.out.println("Load my films");
                     filmsList = neoMan.getSnapsOfLikedFilm(user, 4, 4*page);
-                    System.out.println(filmsList);
                     fillFilm(filmsList);
                 }
                 case "Suggestions" -> {
                     System.out.println("Load suggest films");
                     filmsList = neoMan.getSnapsOfSuggestedFilm(user, 4, 4*page);
-                    System.out.println(filmsList);
                     fillFilm(filmsList);
                 }
             }
@@ -117,51 +124,12 @@ public class BrowserController {
     }
 
     private void handleFilmResearch(){
-        List<Film> filmsList;
-        System.out.println(page);
+        List<Film> filmsList;;
         filmsList = neoMan.getFilms(keywordTf.getText(), 4, 4*page);
         fillFilm(filmsList);
     }
 
-    void profilePage(MouseEvent event) {
-        Dialog<User> dialog = new Dialog<>();
-        dialog.setTitle("Edit Profile");
-        dialog.setHeaderText("Please specify…");
-        DialogPane dialogPane = dialog.getDialogPane();
-        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        TextField firstName = new TextField(Session.getInstance().getLoggedUser().getFirstName());
-        firstName.setPromptText("First Name");
-        TextField lastName = new TextField(Session.getInstance().getLoggedUser().getLastName());
-        lastName.setPromptText("Last Name");
-        PasswordField password = new PasswordField();
-        password.setPromptText("Password");
-        dialogPane.setContent(new VBox(8, firstName, lastName, password));
-        Platform.runLater(firstName::requestFocus);
 
-        dialog.setResultConverter((ButtonType button) -> {
-            if (button == ButtonType.OK) {
-                String pass;
-                if(password.getText().isEmpty())
-                    pass = Session.getInstance().getLoggedUser().getPassword();
-                else
-                    pass = password.getText();
-                return new User(Session.getInstance().getLoggedUser().getUsername(),
-                        pass,
-                        firstName.getText(),
-                        lastName.getText(),
-                        Session.getInstance().getLoggedUser().getType());
-            }
-            return null;
-        });
-        Optional<User> optionalResult = dialog.showAndWait();
-        optionalResult.ifPresent((User u) -> {
-            if (!neoMan.updateUser(u)) {
-                Utils.error();
-                return;
-            }
-            Session.getInstance().setLoggedUser(u);
-        });
-    }
 
     private void loadComboBox(){
         List<String> suggestionList = new ArrayList<>();
@@ -172,6 +140,25 @@ public class BrowserController {
         chooseType.setItems(observableListSuggestion);
     }
 
+    /**
+     * Load filmCard to browsing results
+     * @param film
+     */
+    private Pane loadFilmCard(Film film){
+        Pane pane = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unipi/dii/dmml/moviebox/layout/filmCard.fxml"));
+            pane = loader.load();
+            FilmCardController ctrl = loader.getController();
+            ctrl.setParameters(film);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pane;
+    }
+
+    //---------------------------------Functions to show the films in the browser---------------------------------
     private void fillFilm(List<Film> filmsList){
         setGridFilm();
         forwardBt.setDisable(false);
@@ -224,17 +211,48 @@ public class BrowserController {
             handleResearch();
     }
 
-    private Pane loadFilmCard(Film film){
-        Pane pane = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unipi/dii/dmml/moviebox/layout/filmCard.fxml"));
-            pane = loader.load();
-            FilmCardController ctrl = loader.getController();
-            ctrl.setParameters(film);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return pane;
+
+    /**
+     * Edit profile information
+     * @param event
+     */
+    void profilePage(MouseEvent event) {
+        Dialog<User> dialog = new Dialog<>();
+        dialog.setTitle("Edit Profile");
+        dialog.setHeaderText("Please specify…");
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField firstName = new TextField(Session.getInstance().getLoggedUser().getFirstName());
+        firstName.setPromptText("First Name");
+        TextField lastName = new TextField(Session.getInstance().getLoggedUser().getLastName());
+        lastName.setPromptText("Last Name");
+        PasswordField password = new PasswordField();
+        password.setPromptText("Password");
+        dialogPane.setContent(new VBox(8, firstName, lastName, password));
+        Platform.runLater(firstName::requestFocus);
+
+        dialog.setResultConverter((ButtonType button) -> {
+            if (button == ButtonType.OK) {
+                String pass;
+                if(password.getText().isEmpty())
+                    pass = Session.getInstance().getLoggedUser().getPassword();
+                else
+                    pass = password.getText();
+                return new User(Session.getInstance().getLoggedUser().getUsername(),
+                        pass,
+                        firstName.getText(),
+                        lastName.getText(),
+                        Session.getInstance().getLoggedUser().getType());
+            }
+            return null;
+        });
+        Optional<User> optionalResult = dialog.showAndWait();
+        optionalResult.ifPresent((User u) -> {
+            if (!neoMan.updateUser(u)) {
+                Utils.error();
+                return;
+            }
+            Session.getInstance().setLoggedUser(u);
+        });
     }
 }
