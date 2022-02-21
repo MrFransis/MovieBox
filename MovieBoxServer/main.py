@@ -112,7 +112,7 @@ class App(cmd.Cmd):
                 "CREATE (a)-[r:LIKES]->(f)"
             )
 
-            n_likes = int(random.random() * 20)
+            n_likes = int(random.random() * 30)
             for i in range(0, n_likes):
                 rand_film = films_df.sample()
                 session.write_transaction(lambda tx: tx.run(query, username=row['username'],
