@@ -1,2 +1,2 @@
 # MovieBox
-MovieBox
+Data Mining and Machine Learning project
